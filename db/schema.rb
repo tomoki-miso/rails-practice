@@ -64,6 +64,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_08_063644) do
     t.integer "number", null: false
     t.integer "start_page", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id", "number"], name: "index_rounds_on_group_id_and_number", unique: true
     t.index ["group_id"], name: "index_rounds_on_group_id"
   end
 

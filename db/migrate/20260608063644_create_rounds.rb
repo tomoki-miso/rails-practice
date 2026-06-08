@@ -8,6 +8,7 @@ class CreateRounds < ActiveRecord::Migration[8.1]
       t.integer :end_page, null: false
 
       t.timestamps
+      t.index [ :group_id, :number ], unique: true
     end
   end
 end
