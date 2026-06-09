@@ -1,0 +1,26 @@
+
+h1 輪読会の作成
+
+- if flash[:alert].present?
+  .alert.alert-danger
+    = flash[:alert]
+
+
+= form_with model: @group do |f|                                                                                      
+    .mb-3                                                                                                               
+      = f.label :title, "タイトル", class: "form-label"
+    .mb-1                                                                 
+      = f.text_field :title, class: "form-control"                                                                      
+    .mb-3                                                                                                               
+      = f.label :description, "説明", class: "form-label"       
+    .mb-1                                                                                                                         
+      = f.text_area :description, class: "form-control"
+    .mb-3
+      = f.label :pdf, "PDF", class: "form-label"
+    .mb-1
+      = f.file_field :pdf, accept: "application/pdf", class: "form-control"
+    .mb-3                                                   
+      = f.submit "作成", class: "btn btn-primary"
+
+
+

@@ -1,0 +1,15 @@
+h1 = @group.title
+
+- if notice.present?
+  .alert.alert-success = notice
+
+p = @group.description
+
+- if @group.pdf.attached?
+  hr
+  .pdf-viewer data-controller="pdf-viewer" data-pdf-viewer-url-value=url_for(@group.pdf)
+    .pdf-controls.mb-2.d-flex.align-items-center.gap-2
+      button.btn.btn-sm.btn-secondary type="button" data-pdf-viewer-target="prev" data-action="click->pdf-viewer#prev" 前へ
+      span data-pdf-viewer-target="pageInfo"
+      button.btn.btn-sm.btn-secondary type="button" data-pdf-viewer-target="next" data-action="click->pdf-viewer#next" 次へ
+    canvas data-pdf-viewer-target="canvas" style="border: 1px solid #ccc; max-width: 100%;"
