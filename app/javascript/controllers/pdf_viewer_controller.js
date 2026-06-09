@@ -17,7 +17,10 @@ export default class extends Controller {
         this.pdfDoc = doc;
         this.render();
       })
-      .catch();
+      .catch((error) => {
+        console.error('PDFの読み込みに失敗しました', error);
+        this.pageInfoTarget.textContent = 'PDFの読み込みに失敗しました';
+      });
   }
 
   render() {
