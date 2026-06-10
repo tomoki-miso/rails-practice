@@ -1,0 +1,21 @@
+# https://guides.rubyonrails.org/testing.html#fixtures
+reading_round_one:
+  group: reading_group
+  number: 1
+  start_page: 1
+  end_page: 30
+  held_on: <%= Time.zone.parse("2026-06-01 19:00:00") %>
+
+reading_round_two:
+  group: reading_group
+  number: 2
+  start_page: 31
+  end_page: 60
+  held_on: <%= Time.zone.parse("2026-06-08 19:00:00") %>
+
+ruby_round_one:
+  group: ruby_group
+  number: 1
+  start_page: 1
+  end_page: 25
+  held_on: <%= Time.zone.parse("2026-06-05 20:00:00") %>

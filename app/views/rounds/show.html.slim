@@ -1,0 +1,15 @@
+
+- if notice.present?
+  .alert.alert-success = notice
+
+h1 = @group.title
+h2 = "第#{@round.number}回"
+
+div 開催日
+p = @round.held_on
+
+div ページ範囲
+p = "#{@round.start_page} 〜 #{@round.end_page}"
+
+= link_to '輪読会に戻る', group_path(@group)
+
