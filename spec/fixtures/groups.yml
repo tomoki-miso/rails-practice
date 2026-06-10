@@ -1,0 +1,12 @@
+# https://guides.rubyonrails.org/testing.html#fixtures
+reading_group:
+  title: Rails輪読会
+  description: パーフェクトRailsを読み進める輪読会
+  file_path: pdfs/perfect_rails.pdf
+  byte_size: 1048576
+
+ruby_group:
+  title: Ruby勉強会
+  description: メタプログラミングRubyを読む会
+  file_path: pdfs/metaprogramming_ruby.pdf
+  byte_size: 2097152
