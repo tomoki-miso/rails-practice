@@ -14,6 +14,6 @@ class Round < ApplicationRecord
   def start_page_must_be_less_than_or_equal_to_end_page
     return if start_page.blank? || end_page.blank?
     return if start_page <= end_page
-    errors.add("開始ページは終了ページ以下にしてください")
+    errors.add(:base, "開始ページは終了ページ以下にしてください")
   end
 end
