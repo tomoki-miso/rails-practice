@@ -5,6 +5,9 @@
 h1 = @group.title
 h2 = "第#{@round.number}回"
 
+div 開催日
+p = @round.held_on
+
 div ページ範囲
 p = "#{@round.start_page} 〜 #{@round.end_page}"
 
