@@ -1,7 +1,7 @@
 class RoundsController < ApplicationController
   before_action :set_group
   def new
-    @round = @group.rounds.new(number: next_number = @group.rounds.maximum(:number).to_i + 1)
+    @round = @group.rounds.new(number:  @group.rounds.maximum(:number).to_i + 1)
   end
 
   def show
