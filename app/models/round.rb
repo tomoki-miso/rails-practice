@@ -2,8 +2,8 @@ class Round < ApplicationRecord
   belongs_to :group
   has_many :preparation_completions, dependent: :destroy
 
-  validates :number, uniqueness: { scope: :group_id }
-  validates :number, presence: true
+  validates :number, presence: true, uniqueness: { scope: :group_id }
+  validates :held_on, presence: true
   validates :start_page, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :end_page, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
