@@ -9,6 +9,7 @@ class Round < ApplicationRecord
   validates :end_page, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
   validate :start_page_must_be_less_than_or_equal_to_end_page
+  validate :pages_within_group_total
 
   private
 
@@ -16,5 +17,18 @@ class Round < ApplicationRecord
     return if start_page.blank? || end_page.blank?
     return if start_page <= end_page
     errors.add(:base, "開始ページは終了ページ以下にしてください")
+  end
+
+  # グループの PDF ページ数を超えるページは指定できない。
+  def pages_within_group_total
+    max = group&.pages
+    return if max.blank?
+
+    if start_page.present? && start_page > max
+      errors.add(:start_page, "は#{max}ページ以下にしてください")
+    end
+    if end_page.present? && end_page > max
+      errors.add(:end_page, "は#{max}ページ以下にしてください")
+    end
   end
 end
