@@ -20,4 +20,22 @@ p = @group.description
 
 = link_to "開催日を設定" ,new_group_round_path(@group)
 
+h2 開催日一覧
+
+- if @rounds.present?
+  table.table
+    thead
+      tr
+        th 回数
+        th 開催日
+        th ページ範囲
+    tbody
+      - @rounds.each do |round|
+        tr
+          td = link_to "第#{round.number}回", group_round_path(@group, round)
+          td = round.held_on.strftime('%Y年%m月%d日 %H:%M')
+          td = "#{round.start_page} 〜 #{round.end_page}"
+- else
+  p 開催日はまだ登録されていません。
+
 = render 'comments/comments', commentable: @group

@@ -5,6 +5,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @rounds = @group.rounds.order(:number)
     @comment = Comment.new
   end
 
