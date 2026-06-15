@@ -1,0 +1,22 @@
+- reply_comment = local_assigns.fetch(:reply_comment, nil)
+
+= form_with model: comment, url: url, id: dom_id(comment, :form) do |form|
+  h4 = reply_comment ? "返信を書く" : "コメントを書く"
+
+  - if comment.errors.any?
+    div style="color: red"
+      ul
+        - comment.errors.each do |error|
+          li = error.full_message
+
+  = form.select :kind, Comment.kinds.keys.to_a, { include_blank: "選択してください" }, required: true
+
+  div
+    = form.label :content, style: 'display: block'
+    = form.textarea :content, required: true
+
+  - if reply_comment
+    = form.hidden_field :reply_comment_id, value: reply_comment.id
+
+  div
+    = form.submit

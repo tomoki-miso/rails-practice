@@ -1,6 +1,6 @@
 - if notice.present?
   .alert.alert-success = notice
-  
+
 h1 = @group.title
 
 
@@ -16,3 +16,6 @@ p = @group.description
     canvas data-pdf-viewer-target="canvas" style="border: 1px solid #ccc; max-width: 100%;"
 
 = link_to "開催日を設定" ,new_group_round_path(@group)
+
+= render 'comments/form', commentable: @group, comment: @comment, url: group_comments_path(@group)
+= render 'comments/comments', commentable: @group

@@ -1,0 +1,5 @@
+= turbo_frame_tag dom_id(@comment.reply_comment, :reply_form) do
+  = render "comments/form",
+           comment: @comment,
+           reply_comment: @comment.reply_comment,
+           url: comment_form_url(@commentable)

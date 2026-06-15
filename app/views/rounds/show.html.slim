@@ -13,3 +13,5 @@ p = "#{@round.start_page} 〜 #{@round.end_page}"
 
 = link_to '輪読会に戻る', group_path(@group)
 
+= render 'comments/form', commentable: @round, comment: @comment, url: group_round_comments_path(@group, @round)
+= render 'comments/comments', commentable: @round

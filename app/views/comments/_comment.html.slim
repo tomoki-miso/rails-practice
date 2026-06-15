@@ -1,0 +1,20 @@
+div id=dom_id(comment) class="show-item"
+  p
+    strong = "ユーザー:"
+    = comment.user.name
+  p
+    = comment.kind
+    .m-1
+    = comment.content
+  p
+    strong = "作成日"
+    = comment.created_at.strftime('%Y年%m月%d日 %H:%M')
+
+  - unless comment.reply_comment_id
+    = link_to "返信", new_comment_path_for(comment), data: { turbo_frame: dom_id(comment, :reply_form) }
+
+    = turbo_frame_tag dom_id(comment, :reply_form)
+
+    div id=dom_id(comment, :replies) class="replies" style="margin-left: 2rem"
+      - comment.replies.includes(:user).each do |reply|
+        = render reply
