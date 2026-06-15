@@ -28,7 +28,7 @@ class CommentsController < ApplicationController
     @commentable =
       if params[:group_id] && params[:round_id]
         @group = Group.find(params[:group_id])
-        @round = Round.find(params[:round_id])
+        @round = @group.rounds.find(params[:round_id])
       else
         @group = Group.find(params[:group_id])
       end
