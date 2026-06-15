@@ -1,7 +1,10 @@
 class CommentsController < ApplicationController
   before_action :set_commentable
   def new
-    @comment = @commentable.comments.build(reply_comment_id: params[:reply_comment_id])
+    reply_comment = @commentable.comments.find_by(id: params[:reply_comment_id])
+    return head :bad_request unless reply_comment
+
+    @comment = @commentable.comments.build(reply_comment: reply_comment)
   end
 
   def create
