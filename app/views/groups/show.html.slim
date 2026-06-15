@@ -33,7 +33,7 @@ h2 開催日一覧
       - @rounds.each do |round|
         tr
           td = link_to "第#{round.number}回", group_round_path(@group, round)
-          td = round.held_on&.strftime('%Y年%m月%d日 %H:%M')
+          td = round.held_on.strftime('%Y年%m月%d日 %H:%M')
           td = "#{round.start_page} 〜 #{round.end_page}"
 - else
   p 開催日はまだ登録されていません。
