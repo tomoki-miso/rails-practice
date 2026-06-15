@@ -4,7 +4,8 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group = Group.find(params[:id])
+    @group = Group.includes(comments: :user).find(params[:id])
+    @comment = Comment.new
   end
 
   def create
