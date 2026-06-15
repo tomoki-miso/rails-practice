@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_09_061308) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_10_070052) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -40,15 +40,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_09_061308) do
   end
 
   create_table "comments", force: :cascade do |t|
+    t.integer "commentable_id", null: false
+    t.string "commentable_type", null: false
     t.text "content", null: false
     t.datetime "created_at", null: false
-    t.integer "group_id", null: false
     t.integer "kind", null: false
-    t.integer "page", null: false
+    t.integer "page"
     t.integer "reply_comment_id"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
-    t.index ["group_id"], name: "index_comments_on_group_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["reply_comment_id"], name: "index_comments_on_reply_comment_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -101,7 +102,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_09_061308) do
     t.datetime "created_at", null: false
     t.string "email", null: false
     t.string "name", null: false
-    t.string "password_digest", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
@@ -109,7 +109,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_09_061308) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "comments", column: "reply_comment_id"
-  add_foreign_key "comments", "groups"
   add_foreign_key "comments", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
