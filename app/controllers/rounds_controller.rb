@@ -5,7 +5,7 @@ class RoundsController < ApplicationController
   end
 
   def show
-    @round = @group.rounds.includes(comments: :user).find(params[:id])
+    @round = @group.rounds.find(params[:id])
     @comment = Comment.new
   end
 
