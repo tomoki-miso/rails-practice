@@ -1,8 +1,7 @@
 h4 コメント
 
-#comments_list.index-items
-  - unless commentable.comments.exists?(reply_comment_id: nil)
-    p id="no_comments_found" コメントはありません。
-
-  - commentable.comments.top_level.includes(:user, replies: :user).each do |comment|
-    = render comment
+- top_level_comments = commentable.comments.top_level.includes(:user, replies: :user)
+- if top_level_comments.empty?
+  p id="no_comments_found" コメントはありません。
+- top_level_comments.each do |comment|
+  = render comment
