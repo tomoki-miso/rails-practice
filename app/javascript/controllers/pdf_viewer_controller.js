@@ -5,12 +5,13 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
   'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs';
 
 export default class extends Controller {
-  static targets = ['canvas', 'pageInfo', 'prev', 'next'];
+  static targets = ['canvas', 'pageInfo', 'prev', 'next', 'pageField'];
   static values = { url: String };
 
   connect() {
     this.currentPage = 1;
     this.pdfDoc = null;
+    if (!this.urlValue) return;
     pdfjsLib
       .getDocument(this.urlValue)
       .promise.then((doc) => {
@@ -35,7 +36,16 @@ export default class extends Controller {
       this.pageInfoTarget.textContent = `${this.currentPage} / ${this.pdfDoc.numPages}`;
       this.prevTarget.disabled = this.currentPage <= 1;
       this.nextTarget.disabled = this.currentPage >= this.pdfDoc.numPages;
+      this.updatePageField();
     });
+  }
+
+  pageFieldTargetConnected(el) {
+    el.value = this.currentPage;
+  }
+
+  updatePageField() {
+    if (this.hasPageFieldTarget) this.pageFieldTarget.value = this.currentPage;
   }
 
   prev() {

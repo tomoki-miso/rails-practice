@@ -6,6 +6,10 @@ div id=dom_id(comment) class="show-item"
     = comment.kind
     .m-1
     = comment.content
+  - if comment.page
+    p
+      strong = "ページ:"
+      = "#{comment.page}ページ"
   p
     strong = "作成日"
     = comment.created_at.strftime('%Y年%m月%d日 %H:%M')

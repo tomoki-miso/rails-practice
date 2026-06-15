@@ -36,6 +36,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.expect(comment: %i[kind content reply_comment_id])
+    params.expect(comment: %i[kind content reply_comment_id page])
   end
 end

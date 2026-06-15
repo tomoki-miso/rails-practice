@@ -18,5 +18,7 @@
   - if reply_comment
     = form.hidden_field :reply_comment_id, value: reply_comment.id
 
+  = form.hidden_field :page, data: { pdf_viewer_target: "pageField" }
+
   div
     = form.submit
