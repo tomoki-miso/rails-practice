@@ -6,4 +6,4 @@
   = turbo_stream.remove "no_comments_found"
   = turbo_stream.append "comments_list", @comment
   = turbo_stream.replace dom_id(new_comment, :form) do
-    = render "comments/form", comment: new_comment, url: comment_form_url(@commentable)
+    = render "comments/form", comment: new_comment, url: comment_form_url(@commentable), page_selectable: page_commentable?(@commentable)

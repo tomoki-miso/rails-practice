@@ -20,5 +20,5 @@ div id=dom_id(comment) class="show-item"
     = turbo_frame_tag dom_id(comment, :reply_form)
 
     div id=dom_id(comment, :replies) class="replies" style="margin-left: 2rem"
-      - comment.replies.includes(:user).each do |reply|
+      - comment.replies.each do |reply|
         = render reply

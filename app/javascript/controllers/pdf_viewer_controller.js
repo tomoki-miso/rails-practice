@@ -5,7 +5,15 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
   'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs';
 
 export default class extends Controller {
-  static targets = ['canvas', 'pageInfo', 'prev', 'next', 'pageField'];
+  static targets = [
+    'canvas',
+    'pageInfo',
+    'prev',
+    'next',
+    'pageField',
+    'pageToggle',
+    'pageLabel',
+  ];
   static values = { url: String };
 
   connect() {
@@ -36,16 +44,26 @@ export default class extends Controller {
       this.pageInfoTarget.textContent = `${this.currentPage} / ${this.pdfDoc.numPages}`;
       this.prevTarget.disabled = this.currentPage <= 1;
       this.nextTarget.disabled = this.currentPage >= this.pdfDoc.numPages;
-      this.updatePageField();
+      this.syncPage();
     });
   }
 
-  pageFieldTargetConnected(el) {
-    el.value = this.currentPage;
+  pageFieldTargetConnected() {
+    this.syncPage();
   }
 
-  updatePageField() {
-    if (this.hasPageFieldTarget) this.pageFieldTarget.value = this.currentPage;
+  togglePage() {
+    this.syncPage();
+  }
+
+  // 現在ページのラベル表示と、チェック状態に応じた hidden field の値を同期する
+  syncPage() {
+    if (this.hasPageLabelTarget) {
+      this.pageLabelTarget.textContent = this.currentPage;
+    }
+    if (!this.hasPageFieldTarget) return;
+    const linked = !this.hasPageToggleTarget || this.pageToggleTarget.checked;
+    this.pageFieldTarget.value = linked ? this.currentPage : '';
   }
 
   prev() {

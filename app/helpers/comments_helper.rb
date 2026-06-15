@@ -11,6 +11,11 @@ module CommentsHelper
     end
   end
 
+  # PDFのページ番号と紐づけられる commentable か（Group かつ PDF添付済み）
+  def page_commentable?(commentable)
+    commentable.is_a?(Group) && commentable.pdf.attached?
+  end
+
   def new_comment_path_for(parent_comment)
     commentable = parent_comment.commentable
     case commentable
