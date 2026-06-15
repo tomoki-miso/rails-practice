@@ -6,6 +6,7 @@ class RoundsController < ApplicationController
 
   def show
     @round = @group.rounds.find(params[:id])
+    @comment = Comment.new
   end
 
 

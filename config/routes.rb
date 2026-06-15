@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :groups, only: %i[new create show] do
-    resources :rounds, only: %i[new create show]
+    resources :rounds, only: %i[new create show] do
+      resources :comments, only: %i[create new]
+    end
+    resources :comments, only: %i[create new]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

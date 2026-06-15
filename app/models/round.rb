@@ -1,6 +1,7 @@
 class Round < ApplicationRecord
   belongs_to :group
   has_many :preparation_completions, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
 
   validates :number, presence: true, uniqueness: { scope: :group_id }
   validates :held_on, presence: true

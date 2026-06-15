@@ -1,18 +1,23 @@
 - if notice.present?
   .alert.alert-success = notice
-  
+
 h1 = @group.title
 
 
 p = @group.description
 
-- if @group.pdf.attached?
-  hr
-  .pdf-viewer data-controller="pdf-viewer" data-pdf-viewer-url-value=url_for(@group.pdf)
-    .pdf-controls.mb-2.d-flex.align-items-center.gap-2
-      button.btn.btn-sm.btn-secondary type="button" data-pdf-viewer-target="prev" data-action="click->pdf-viewer#prev" 前へ
-      span data-pdf-viewer-target="pageInfo"
-      button.btn.btn-sm.btn-secondary type="button" data-pdf-viewer-target="next" data-action="click->pdf-viewer#next" 次へ
-    canvas data-pdf-viewer-target="canvas" style="border: 1px solid #ccc; max-width: 100%;"
+.pdf-area data-controller="pdf-viewer" data-pdf-viewer-url-value=(@group.pdf.attached? ? url_for(@group.pdf) : "")
+  - if @group.pdf.attached?
+    hr
+    .pdf-viewer
+      .pdf-controls.mb-2.d-flex.align-items-center.gap-2
+        button.btn.btn-sm.btn-secondary type="button" data-pdf-viewer-target="prev" data-action="click->pdf-viewer#prev" 前へ
+        span data-pdf-viewer-target="pageInfo"
+        button.btn.btn-sm.btn-secondary type="button" data-pdf-viewer-target="next" data-action="click->pdf-viewer#next" 次へ
+      canvas data-pdf-viewer-target="canvas" style="border: 1px solid #ccc; max-width: 100%;"
+
+  = render 'comments/form', comment: @comment, url: group_comments_path(@group), page_selectable: page_commentable?(@group)
 
 = link_to "開催日を設定" ,new_group_round_path(@group)
+
+= render 'comments/comments', commentable: @group

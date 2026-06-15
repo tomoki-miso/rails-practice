@@ -1,0 +1,32 @@
+- reply_comment = local_assigns.fetch(:reply_comment, nil)
+- page_selectable = local_assigns.fetch(:page_selectable, false)
+
+= form_with model: comment, url: url, id: dom_id(comment, :form) do |form|
+  h4 = reply_comment ? "返信を書く" : "コメントを書く"
+
+  - if comment.errors.any?
+    div style="color: red"
+      ul
+        - comment.errors.each do |error|
+          li = error.full_message
+
+  = form.select :kind, Comment.kinds.keys.to_a, { include_blank: "選択してください" }, required: true
+
+  div
+    = form.label :content, style: 'display: block'
+    = form.textarea :content, required: true
+
+  - if reply_comment
+    = form.hidden_field :reply_comment_id, value: reply_comment.id
+
+  - if page_selectable
+    div
+      label
+        input type="checkbox" checked=true data-pdf-viewer-target="pageToggle" data-action="change->pdf-viewer#togglePage"
+        |  現在の
+        span data-pdf-viewer-target="pageLabel"
+        |  ページ目に紐づける
+    = form.hidden_field :page, data: { pdf_viewer_target: "pageField" }
+
+  div
+    = form.submit
