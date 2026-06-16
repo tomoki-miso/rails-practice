@@ -5,8 +5,8 @@ class Round < ApplicationRecord
 
   validates :number, presence: true, uniqueness: { scope: :group_id }
   validates :held_on, presence: true
-  validates :start_page, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :end_page, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :start_page, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
+  validates :end_page, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
 
   validate :start_page_must_be_less_than_or_equal_to_end_page
   validate :pages_within_group_total

@@ -28,7 +28,7 @@ h1 開催日の作成
         = f.select :end_page, (1..@group.pages).to_a, {include_blank: "選択してください"}
     - else
       .mb-3
-        p.text-muted PDFが登録されていないため、ページ範囲を指定できません。
+        p.text-muted PDFが未登録のため、ページ範囲は指定せずに作成されます。
     .mb-3
       = f.submit "作成", class: "btn btn-primary"
 
