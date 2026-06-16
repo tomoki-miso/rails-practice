@@ -17,15 +17,19 @@ h1 開催日の作成
       = f.label :held_on, "開催日", class: "form-label"
     .mb-1                                                                                                                         
       = f.datetime_local_field :held_on
+    - if @group.pages.present?
+      .mb-3
+        p.form-label ページ範囲（全#{@group.pages}ページ）
+      .mb-1
+        = f.label :start_page, "開始"
+        = f.select :start_page, (1..@group.pages).to_a, {include_blank: "選択してください"}
+      .mb-1
+        = f.label :end_page, "終了"
+        = f.select :end_page, (1..@group.pages).to_a, {include_blank: "選択してください"}
+    - else
+      .mb-3
+        p.text-muted PDFが未登録のため、ページ範囲は指定せずに作成されます。
     .mb-3
-      p.form-label ページ範囲
-    .mb-1
-      = f.label :start_page, "開始"
-      = f.select :start_page, (1..10).to_a, {include_blank: "選択してください"}    
-    .mb-1
-      = f.label :start_page, "終了"                                     
-      = f.select :end_page, (1..10).to_a, {include_blank: "選択してください"}                                          
-    .mb-3                                                   
       = f.submit "作成", class: "btn btn-primary"
 
 = link_to '戻る', group_path(@group)
