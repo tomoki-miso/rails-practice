@@ -26,4 +26,8 @@ html
     = javascript_importmap_tags
 
   body
+    - if notice
+      .alert.alert-success = notice
+    - if alert
+      .alert.alert-danger = alert
     = yield
