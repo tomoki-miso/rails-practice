@@ -37,7 +37,7 @@ class AddDeviseToUsers < ActiveRecord::Migration[8.1]
       # t.timestamps null: false
     end
 
-    # email の unique index は既存の users テーブルに定義済みのため追加しない
+    add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
