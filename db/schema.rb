@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_10_070052) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_16_084711) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -70,6 +70,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_10_070052) do
     t.datetime "created_at", null: false
     t.string "description"
     t.string "file_path"
+    t.integer "pages"
     t.string "title", null: false
     t.datetime "updated_at", null: false
   end
@@ -87,11 +88,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_10_070052) do
 
   create_table "rounds", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer "end_page", null: false
+    t.integer "end_page"
     t.integer "group_id", null: false
     t.datetime "held_on"
     t.integer "number", null: false
-    t.integer "start_page", null: false
+    t.integer "start_page"
     t.datetime "updated_at", null: false
     t.index ["group_id", "number"], name: "index_rounds_on_group_id_and_number", unique: true
     t.index ["group_id"], name: "index_rounds_on_group_id"
@@ -99,11 +100,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_10_070052) do
 
   create_table "users", force: :cascade do |t|
     t.string "avatar"
+    t.datetime "confirmation_sent_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
     t.datetime "created_at", null: false
     t.string "email", null: false
+    t.string "encrypted_password", default: "", null: false
     t.string "name", null: false
+    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at"
+    t.string "reset_password_token"
+    t.string "unconfirmed_email"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
