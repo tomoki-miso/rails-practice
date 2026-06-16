@@ -60,6 +60,9 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  # View sent emails (e.g. devise confirmation mails) at /letter_opener in the browser.
+  # letter_opener_web works in headless/devcontainer environments where a GUI browser cannot be opened.
+  gem "letter_opener_web"
 end
 
 group :development, :test do
@@ -67,3 +70,7 @@ group :development, :test do
 end
 
 gem "slim-rails"
+
+gem "devise"
+gem "rails-i18n"
+gem "devise-i18n"
