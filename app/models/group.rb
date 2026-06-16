@@ -6,8 +6,8 @@ class Group < ApplicationRecord
   has_many :users, through: :group_members, dependent: :destroy
   has_one_attached :pdf
 
-  after_commit :store_pdf_pages, on: %i[create update]
-
+  after_commit :store_pdf_pages, on: %i[create update],
+             if: -> { attachment_changes["pdf"].present? }
   private
 
   # 添付された PDF のページ数を解析して pages カラムに保存する。
@@ -18,7 +18,7 @@ class Group < ApplicationRecord
     pdf.blob.open do |file|
       update_column(:pages, PDF::Reader.new(file).page_count)
     end
-  rescue PDF::Reader::MalformedPDFError, PDF::Reader::UnsupportedFeatureError
+  rescue PDF::Reader::Error
     # 解析できない PDF はページ数を保存しない（nil のまま）
   end
 end
