@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  # 開発環境で送信メールを閲覧する画面 (/letter_opener)
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
+  devise_for :users
   resources :groups, only: %i[new create show] do
     resources :rounds, only: %i[new create show] do
       resources :comments, only: %i[create new]
