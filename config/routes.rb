@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   devise_for :users
+  root "home#index"
+
+  resources :group_members, only: %i[create]
   resources :groups, only: %i[new create show] do
     resources :rounds, only: %i[new create show] do
       resources :comments, only: %i[create new]
