@@ -26,6 +26,13 @@ html
     = javascript_importmap_tags
 
   body
+    - if user_signed_in?
+      nav.navbar.navbar-light.bg-light.px-3.mb-3
+        = link_to "ホーム", root_path, class: "navbar-brand"
+        .ms-auto.d-flex.align-items-center.gap-2
+          span.navbar-text = current_user.name
+          = link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-sm btn-outline-secondary"
+
     - if notice
       .alert.alert-success = notice
     - if alert

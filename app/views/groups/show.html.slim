@@ -6,6 +6,13 @@ h1 = @group.title
 
 p = @group.description
 
+section.mb-3 data-controller="invite-code"
+  button.btn.btn-outline-primary type="button" data-action="invite-code#reveal" 招待コードを発行
+  .mt-2.d-none data-invite-code-target="panel"
+    code data-invite-code-target="code" = @group.invite_token
+    button.btn.btn-sm.btn-secondary.ms-2 type="button" data-action="invite-code#copy" コピー
+    span.ms-2.text-success.d-none data-invite-code-target="copied" コピーしました
+
 .pdf-area data-controller="pdf-viewer" data-pdf-viewer-url-value=(@group.pdf.attached? ? url_for(@group.pdf) : "")
   - if @group.pdf.attached?
     hr
