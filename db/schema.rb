@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_16_084711) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_17_051353) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -70,9 +70,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_16_084711) do
     t.datetime "created_at", null: false
     t.string "description"
     t.string "file_path"
+    t.string "invite_token"
     t.integer "pages"
     t.string "title", null: false
     t.datetime "updated_at", null: false
+    t.index ["invite_token"], name: "index_groups_on_invite_token", unique: true
   end
 
   create_table "preparation_completions", force: :cascade do |t|
