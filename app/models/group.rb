@@ -1,4 +1,7 @@
 class Group < ApplicationRecord
+  # 招待コード。作成時に自動採番され、メンバー参加に利用する。
+  has_secure_token :invite_token
+
   has_many :rounds
   has_many :comments, as: :commentable, dependent: :destroy
 
