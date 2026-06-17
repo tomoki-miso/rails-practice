@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @commentable.comments.build(comment_params)
-    @comment.user = User.find(1)
+    @comment.user = current_user
 
     respond_to do |format|
       if @comment.save
@@ -25,12 +25,14 @@ class CommentsController < ApplicationController
 
   private
   def set_commentable
+    @group = find_member_group(params[:group_id])
+    return if @group.nil?
+
     @commentable =
-      if params[:group_id] && params[:round_id]
-        @group = Group.find(params[:group_id])
+      if params[:round_id]
         @round = @group.rounds.find(params[:round_id])
       else
-        @group = Group.find(params[:group_id])
+        @group
       end
   end
 

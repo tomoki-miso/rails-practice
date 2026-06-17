@@ -30,6 +30,6 @@ class RoundsController < ApplicationController
   end
 
   def set_group
-    @group = Group.find(params[:group_id])
+    @group = find_member_group(params[:group_id])
   end
 end
