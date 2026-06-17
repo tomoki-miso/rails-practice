@@ -2,9 +2,14 @@ require 'rails_helper'
 
 RSpec.describe "Rounds", type: :request do
   fixtures :groups, :rounds
+
+  let(:user) { User.create!(name: "テスト", email: "test@example.com", password: "password", confirmed_at: Time.current) }
+  before { sign_in user }
+
   describe "GET /groups/:group_id/rounds/new" do
     it "new画面を表示する" do
       group = Group.create!(title: "輪読会")
+      group.group_members.create!(user: user, role: :owner)
       get new_group_round_path(group)
 
       expect(response).to have_http_status(:ok)
@@ -13,6 +18,7 @@ RSpec.describe "Rounds", type: :request do
 
     it "回数に次の開催回数を表示する" do
       group = groups(:reading_group)
+      group.group_members.create!(user: user, role: :owner)
 
       get new_group_round_path(group)
 
@@ -26,6 +32,14 @@ RSpec.describe "Rounds", type: :request do
 
       expect(number_field).not_to be_nil
       expect(number_field["value"]).to eq expected_number.to_s
+    end
+
+    it "メンバーでない輪読会はホームにリダイレクトする" do
+      group = Group.create!(title: "他人の輪読会")
+
+      get new_group_round_path(group)
+
+      expect(response).to redirect_to(root_path)
     end
   end
 end
